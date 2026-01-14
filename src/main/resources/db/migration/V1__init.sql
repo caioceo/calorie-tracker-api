@@ -1,8 +1,8 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
+    nome VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    senha_hash VARCHAR(255) NOT NULL
+    senha VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE users_info (
