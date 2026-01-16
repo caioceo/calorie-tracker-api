@@ -1,12 +1,10 @@
 package dev.caio.fitsy.config.security;
 
-import dev.caio.fitsy.repository.ClientRepository;
+import dev.caio.fitsy.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.antlr.v4.runtime.Token;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,29 +16,31 @@ import java.io.IOException;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
-    @Autowired
-    TokenService tokenService;
+    private final TokenConfig tokenConfig;
+    private final UserRepository userRepository;
 
-    @Autowired
-    ClientRepository clientRepository;
+    public SecurityFilter(TokenConfig tokenConfig, UserRepository userRepository) {
+        this.tokenConfig = tokenConfig;
+        this.userRepository = userRepository;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var token = this.recoverToken(request);
-        if(token!=null){
-            var login = tokenService.validateToken(token);
-            UserDetails userDetails =  clientRepository.findByEmail(login);
-
+        String token = this.recoveryToken(request);
+        if(token != null){
+            var username = tokenConfig.validateToken(token);
+            UserDetails userDetails = userRepository.findByEmail(username).orElseThrow(() -> new RuntimeException());
             var authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
     }
 
-    private String recoverToken(HttpServletRequest request){
+    private String recoveryToken(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");
-        if(authHeader == null) return null;
+        if(authHeader==null){
+            return null;
+        }
         return authHeader.replace("Bearer ", "");
     }
 }
-
