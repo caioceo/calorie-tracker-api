@@ -26,14 +26,18 @@ public class MetaService {
         this.metaMapper = metaMapper;
     }
 
-
     public MetaResponse createNewMeta(User user, CreateMetaRequest request) {
-        Meta metaAtiva = metaRepository.findByUserAndStatus(user, Status.ATIVO);
 
+        UserInfo userInfo = user.getUserInfo();
+        if(userInfo == null){
+            throw new BusinessException("O usuário não possui informações cadastradas.");
+        }
+
+        Meta metaAtiva = metaRepository.findByUserInfoAndStatus(userInfo, Status.ATIVO);
         if(metaAtiva==null){
 
         }
-        if(metaAtiva.getObjetivo().equals( request.objetivo())){
+        else if(metaAtiva.getObjetivo().equals( request.objetivo())){
             throw new BusinessException("Já existe uma meta ativa igual a essa para o usuário.");
         }
         else{
@@ -41,7 +45,9 @@ public class MetaService {
         }
 
         Meta meta = metaMapper.createRequestToModel(request);
-        meta.setUser(user);
+        meta.setPesoInicial(user.getUserInfo().getPeso());
+        meta.setUserInfo(userInfo);
+
 
         metaRepository.save(meta);
         return metaMapper.modelToResponse(HttpStatus.CREATED.value(), "Nova meta criado com sucesso!", meta);
@@ -56,7 +62,11 @@ public class MetaService {
     }
 
     public MetaResponse updateActiveMeta(User user, UpdateMetaRequest request) {
-        Meta metaAtiva = metaRepository.findByUserAndStatus(user, Status.ATIVO);
+        UserInfo userInfo = user.getUserInfo();
+        if(userInfo == null){
+            throw new BusinessException("O usuário não possui informações cadastradas.");
+        }
+        Meta metaAtiva = metaRepository.findByUserInfoAndStatus(userInfo, Status.ATIVO);
 
         if(metaAtiva==null){
             throw new BusinessException("Não existe uma meta ativa para o usuário.");
@@ -81,7 +91,13 @@ public class MetaService {
     }
 
     public MetaResponse getActiveMeta(User user) {
-        Meta metaAtiva = metaRepository.findByUserAndStatus(user, Status.ATIVO);
+
+        UserInfo userInfo = user.getUserInfo();
+        if(userInfo == null){
+            throw new BusinessException("O usuário não possui informações cadastradas.");
+        }
+
+        Meta metaAtiva = metaRepository.findByUserInfoAndStatus(userInfo, Status.ATIVO);
 
         if(metaAtiva==null){
             throw new BusinessException("Não existe uma meta ativa para o usuário.");
@@ -91,7 +107,11 @@ public class MetaService {
     }
 
     public List<HistoricoMetaReponse> getHistoricoMetas(User user) {
-        List<Meta> metas = metaRepository.findByUserOrderByDataInicioDesc(user);
+        UserInfo userInfo = user.getUserInfo();
+        if(userInfo == null){
+            throw new BusinessException("O usuário não possui informações cadastradas.");
+        }
+        List<Meta> metas = metaRepository.findByUserInfoOrderByDataInicioDesc(userInfo);
 
         return metaMapper.modelListToResponseList(metas);
     }

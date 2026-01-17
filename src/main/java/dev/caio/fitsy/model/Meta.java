@@ -24,8 +24,8 @@ public class Meta {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "user_info_id")
+    private UserInfo userInfo;
 
     @Column(name = "nivel_atividade", length = 20)
     @Enumerated(EnumType.STRING)

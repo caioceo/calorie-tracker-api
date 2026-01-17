@@ -42,5 +42,8 @@ public class UserInfo {
 
     @OneToMany(mappedBy = "userInfo")
     private List<DiarioAlimentar> diarioAlimentar;
+
+    @OneToMany(mappedBy = "userInfo")
+    private List<Meta> metas;
 }
 

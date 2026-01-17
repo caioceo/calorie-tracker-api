@@ -3,7 +3,7 @@ package dev.caio.fitsy.exceptions;
 
 public class NotFoundException extends RuntimeException {
     
-        public NotFoundException (String instance, Long id) {
-            super(instance + " not found for user id: " + id);
+        public NotFoundException (String target, String source , Long id) {
+            super(target + " not found for " + source + " id: " + id);
         }
 }

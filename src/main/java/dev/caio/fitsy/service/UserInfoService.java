@@ -28,9 +28,11 @@ public class UserInfoService {
 
     @Transactional
     public UserInfoResponse createUserInfo(User user, CreateUserInfoRequest request){
+
         if(user.getUserInfo() != null){
             throw new AlreadyExistsException("UserInfo");
         }
+
 
         UserInfo info = userInfoMapper.createRequestToModel(request);
         info.setUser(user);
@@ -44,7 +46,7 @@ public class UserInfoService {
     public UserInfoResponse getUserInfo(User user){
         UserInfo info = userInfoRepository.findByUser(user);
         if(info == null){
-            throw new NotFoundException("UserInfo", user.getId());
+            throw new NotFoundException("UserInfo", "user", user.getId());
         }
 
         return userInfoMapper.modelToResponse(HttpStatus.OK.value(), "Informações do usuário encontradas com sucesso!", info);
@@ -56,7 +58,7 @@ public class UserInfoService {
         UserInfo info = userInfoRepository.findByUser(user);
 
         if(info == null){
-            throw new NotFoundException("UserInfo", user.getId());
+            throw new NotFoundException("UserInfo", "user", user.getId());
         }
 
         if(info.getPeso().equals(request.peso())){

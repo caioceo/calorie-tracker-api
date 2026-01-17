@@ -20,7 +20,7 @@ public class UserInfoController {
         this.userInfoService = userInfoService;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<UserInfoResponse> getUserInfo(@AuthenticationPrincipal User user){
         return ResponseEntity.status(HttpStatus.OK).body(userInfoService.getUserInfo(user));
     }

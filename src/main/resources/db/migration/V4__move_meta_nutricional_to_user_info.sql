@@ -1,0 +1,4 @@
+ALTER TABLE meta
+
+ADD COLUMN user_info_id INT REFERENCES users_info(id) ON DELETE CASCADE,
+DROP COLUMN user_id;

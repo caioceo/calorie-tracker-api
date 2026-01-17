@@ -42,9 +42,6 @@ public class User implements UserDetails {
     )
     private List<Role> roles;
 
-    @OneToMany(mappedBy = "user")
-    private List<Meta> metas;
-
     @OneToMany(mappedBy = "criador")
     private List<Alimento> alimentosCriados;
 

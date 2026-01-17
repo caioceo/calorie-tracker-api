@@ -2,9 +2,7 @@ package dev.caio.fitsy.dto.mapper;
 
 import dev.caio.fitsy.dto.request.CreateMetaRequest;
 import dev.caio.fitsy.dto.response.HistoricoMetaReponse;
-import dev.caio.fitsy.dto.response.HistoricoPesoResponse;
 import dev.caio.fitsy.dto.response.MetaResponse;
-import dev.caio.fitsy.model.HistoricoPeso;
 import dev.caio.fitsy.model.Meta;
 import dev.caio.fitsy.model.enums.Status;
 import org.springframework.stereotype.Component;
@@ -23,7 +21,6 @@ public class MetaMapper {
         Meta meta = new Meta();
         meta.setObjetivo(request.objetivo());
         meta.setEstrategia(request.estrategia());
-        meta.setPesoInicial(request.peso_inicial());
         meta.setPesoMeta(request.peso_meta());
         meta.setNivelAtividade(request.nivel_atividade());
         meta.setDataInicio(LocalDate.now());
