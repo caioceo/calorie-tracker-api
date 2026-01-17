@@ -34,13 +34,10 @@ public class UserInfo {
     @Column(length = 10)
     private Sexo sexo;
 
-    @Column(name = "nivel_atividade", length = 20)
-    private String nivelAtividade;
-
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
-    @OneToMany(mappedBy = "userInfo")
+    @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
     private List<HistoricoPeso> historicoPeso;
 
     @OneToMany(mappedBy = "userInfo")

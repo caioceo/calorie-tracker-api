@@ -1,5 +1,6 @@
 package dev.caio.fitsy.model;
 
+import dev.caio.fitsy.model.enums.RefeicaoNome;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,7 +24,8 @@ public class Refeicao {
     private DiarioAlimentar diarioAlimentar;
 
     @Column(nullable = false, length = 50)
-    private String nome;
+    @Enumerated(EnumType.STRING)
+    private RefeicaoNome nome;
 
     @OneToMany(mappedBy = "refeicao", cascade = CascadeType.ALL)
     private List<AlimentoRefeicao> alimentoRefeicoes;

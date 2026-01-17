@@ -1,11 +1,13 @@
 package dev.caio.fitsy.model;
 
 import dev.caio.fitsy.model.enums.Estrategia;
+import dev.caio.fitsy.model.enums.NivelAtividade;
 import dev.caio.fitsy.model.enums.Objetivo;
 import dev.caio.fitsy.model.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -25,6 +27,10 @@ public class Meta {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "nivel_atividade", length = 20)
+    @Enumerated(EnumType.STRING)
+    private NivelAtividade nivelAtividade;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private Objetivo objetivo;
@@ -38,6 +44,9 @@ public class Meta {
 
     @Column(name = "peso_meta", nullable = false)
     private Float pesoMeta;
+
+    @Column(name = "data_inicio", nullable = false)
+    private LocalDate dataInicio;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
