@@ -1,4 +1,4 @@
-package dev.caio.fitsy.dto.request;
+package dev.caio.fitsy.dto.request.auth;
 
 import jakarta.validation.constraints.NotEmpty;
 
