@@ -40,13 +40,10 @@ public class MetaService {
             throw new BusinessException("O usuário não possui informações cadastradas.");
         }
         Meta metaAtiva = metaRepository.findByUserInfoAndStatus(userInfo, Status.ATIVO);
-        if(metaAtiva==null){
-
-        }
-        else if(metaAtiva.getObjetivo().equals( request.objetivo())){
-            throw new BusinessException("Já existe uma meta ativa igual a essa para o usuário.");
-        }
-        else{
+        if(metaAtiva != null){
+            if(metaAtiva.getObjetivo().equals(request.objetivo())){
+                throw new BusinessException("Já existe uma meta ativa igual a essa para o usuário.");
+            }
             if(metaAtiva.getDataInicio().equals(LocalDate.now())){
                 metaRepository.delete(metaAtiva);
             }

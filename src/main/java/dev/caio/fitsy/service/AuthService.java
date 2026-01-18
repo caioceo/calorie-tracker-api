@@ -14,21 +14,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
 
-    private final PasswordEncoder passwordEncoder;
     private final TokenConfig tokenConfig;
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final UserRegisterMapper userRegisterMapper;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, TokenConfig tokenConfig, UserRegisterMapper userRegisterMapper) {
+    public AuthService(UserRepository userRepository, AuthenticationManager authenticationManager, TokenConfig tokenConfig, UserRegisterMapper userRegisterMapper) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.tokenConfig = tokenConfig;
         this.userRegisterMapper = userRegisterMapper;
