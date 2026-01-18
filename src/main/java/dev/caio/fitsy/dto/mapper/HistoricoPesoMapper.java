@@ -13,7 +13,7 @@ public class HistoricoPesoMapper {
         return historicoPesos
                 .stream()
                 .map(historicoPeso -> new HistoricoPesoResponse(
-                        historicoPeso.getPeso(), historicoPeso.getDataRegistro()))
+                        historicoPeso.getStatus(), historicoPeso.getDataRegistro(), historicoPeso.getPeso()))
                 .toList();
     }
 }

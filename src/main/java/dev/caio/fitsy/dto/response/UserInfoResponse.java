@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public record UserInfoResponse(Integer status,
                                String mensagem,
                                Float peso,
-                               Float altura,
+                               Integer altura,
                                Sexo sexo,
                                LocalDate data_nascimento) {
 }
