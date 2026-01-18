@@ -2,17 +2,21 @@ package dev.caio.fitsy.service;
 
 import dev.caio.fitsy.dto.mapper.MetaMapper;
 import dev.caio.fitsy.dto.request.CreateMetaRequest;
+import dev.caio.fitsy.dto.request.MetaNutrientesRequest;
 import dev.caio.fitsy.dto.request.UpdateMetaRequest;
 import dev.caio.fitsy.dto.response.HistoricoMetaReponse;
 import dev.caio.fitsy.dto.response.MetaResponse;
 import dev.caio.fitsy.exceptions.BusinessException;
 import dev.caio.fitsy.model.Meta;
 import dev.caio.fitsy.model.User;
+import dev.caio.fitsy.model.UserInfo;
 import dev.caio.fitsy.model.enums.Status;
 import dev.caio.fitsy.repository.MetaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -20,19 +24,21 @@ public class MetaService {
 
     private final MetaRepository metaRepository;
     private final MetaMapper metaMapper;
+    private final MetaNutrientesService metaNutrientesService;
 
-    public MetaService(MetaRepository metaRepository, MetaMapper metaMapper) {
+    public MetaService(MetaRepository metaRepository, MetaMapper metaMapper, MetaNutrientesService metaNutrientesService) {
         this.metaRepository = metaRepository;
         this.metaMapper = metaMapper;
+        this.metaNutrientesService = metaNutrientesService;
     }
 
+    @Transactional
     public MetaResponse createNewMeta(User user, CreateMetaRequest request) {
 
         UserInfo userInfo = user.getUserInfo();
         if(userInfo == null){
             throw new BusinessException("O usuário não possui informações cadastradas.");
         }
-
         Meta metaAtiva = metaRepository.findByUserInfoAndStatus(userInfo, Status.ATIVO);
         if(metaAtiva==null){
 
@@ -41,15 +47,22 @@ public class MetaService {
             throw new BusinessException("Já existe uma meta ativa igual a essa para o usuário.");
         }
         else{
-            metaAtiva.setStatus(Status.INATIVO);
+            if(metaAtiva.getDataInicio().equals(LocalDate.now())){
+                metaRepository.delete(metaAtiva);
+            }
+            else{
+                metaAtiva.setStatus(Status.INATIVO);
+            }
         }
 
         Meta meta = metaMapper.createRequestToModel(request);
         meta.setPesoInicial(user.getUserInfo().getPeso());
         meta.setUserInfo(userInfo);
-
-
         metaRepository.save(meta);
+
+        metaNutrientesService.createMetaNutrientes(user, new MetaNutrientesRequest(35,40, 25));
+
+
         return metaMapper.modelToResponse(HttpStatus.CREATED.value(), "Nova meta criado com sucesso!", meta);
     }
 
