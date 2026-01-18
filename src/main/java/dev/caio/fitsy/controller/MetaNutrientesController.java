@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("user-info/meta-nutrientes")
 public class MetaNutrientesController {
 
-    private MetaNutrientesService metaNutrientesService;
+    private final MetaNutrientesService metaNutrientesService;
 
     public MetaNutrientesController(MetaNutrientesService metaNutrientesService) {
         this.metaNutrientesService = metaNutrientesService;

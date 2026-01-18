@@ -7,27 +7,25 @@ import dev.caio.fitsy.dto.request.auth.RegisterUserRequest;
 import dev.caio.fitsy.dto.response.auth.LoginResponse;
 import dev.caio.fitsy.dto.response.auth.RegisterUserResponse;
 import dev.caio.fitsy.exceptions.AlreadyExistsException;
+import dev.caio.fitsy.exceptions.NotFoundException;
 import dev.caio.fitsy.model.User;
 import dev.caio.fitsy.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
 
-    private final PasswordEncoder passwordEncoder;
     private final TokenConfig tokenConfig;
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final UserRegisterMapper userRegisterMapper;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, TokenConfig tokenConfig, UserRegisterMapper userRegisterMapper) {
+    public AuthService(UserRepository userRepository, AuthenticationManager authenticationManager, TokenConfig tokenConfig, UserRegisterMapper userRegisterMapper) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.tokenConfig = tokenConfig;
         this.userRegisterMapper = userRegisterMapper;
@@ -39,6 +37,9 @@ public class AuthService {
         Authentication authentication = authenticationManager.authenticate(userAndPass);
 
         User user = (User) authentication.getPrincipal();
+        if(user == null){
+            throw new NotFoundException("Token", "user", null);
+        }
         String token = tokenConfig.generateToken(user);
 
         return new LoginResponse(token);
