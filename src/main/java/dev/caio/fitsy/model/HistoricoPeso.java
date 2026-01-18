@@ -1,5 +1,6 @@
 package dev.caio.fitsy.model;
 
+import dev.caio.fitsy.model.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,10 @@ public class HistoricoPeso {
 
     @Column
     private Float peso;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Column(name = "data_registro", nullable = false)
     private LocalDate dataRegistro;

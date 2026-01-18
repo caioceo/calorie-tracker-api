@@ -47,31 +47,31 @@ public class MetaNutrientes {
     private Float gorduras;
 
     @Column
-    private Float fibras;
+    private Float fibras = 30f;
 
     @Column
-    private Float colesterol;
+    private Float colesterol = 300f;
 
     @Column
-    private Float sodio;
+    private Float sodio = 1500f;
 
     @Column
-    private Float potassio;
+    private Float potassio = 3500f;
 
     @Column
-    private Float ferro;
+    private Float ferro = 10f;
 
     @Column
-    private Float calcio;
+    private Float calcio = 1000f;
 
     @Column
-    private Float zinco;
+    private Float zinco = 10f;
 
     @Column(name = "vitamina_c")
-    private Float vitaminaC;
+    private Float vitaminaC = 90f;
 
     @Column
-    private Float magnesio;
+    private Float magnesio = 350f;
 
     @OneToMany(mappedBy = "metaNutrientes")
     private List<DiarioAlimentar> diariosAlimentares;

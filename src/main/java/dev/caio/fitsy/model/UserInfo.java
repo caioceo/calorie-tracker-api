@@ -25,7 +25,7 @@ public class UserInfo {
     private User user;
 
     @Column
-    private Float altura;
+    private Integer altura;
 
     @Column
     private Float peso;
