@@ -7,6 +7,7 @@ import dev.caio.fitsy.dto.request.auth.RegisterUserRequest;
 import dev.caio.fitsy.dto.response.auth.LoginResponse;
 import dev.caio.fitsy.dto.response.auth.RegisterUserResponse;
 import dev.caio.fitsy.exceptions.AlreadyExistsException;
+import dev.caio.fitsy.exceptions.NotFoundException;
 import dev.caio.fitsy.model.User;
 import dev.caio.fitsy.repository.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,9 @@ public class AuthService {
         Authentication authentication = authenticationManager.authenticate(userAndPass);
 
         User user = (User) authentication.getPrincipal();
+        if(user == null){
+            throw new NotFoundException("Token", "user", null);
+        }
         String token = tokenConfig.generateToken(user);
 
         return new LoginResponse(token);

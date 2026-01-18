@@ -33,7 +33,6 @@ public class UserInfoService {
             throw new AlreadyExistsException("UserInfo");
         }
 
-
         UserInfo info = userInfoMapper.createRequestToModel(request);
         info.setUser(user);
         userInfoRepository.save(info);
