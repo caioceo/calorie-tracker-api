@@ -2,7 +2,7 @@ package dev.caio.fitsy.dto.mapper;
 
 import dev.caio.fitsy.dto.request.auth.RegisterUserRequest;
 import dev.caio.fitsy.dto.response.auth.RegisterUserResponse;
-import dev.caio.fitsy.model.User;
+import dev.caio.fitsy.model.user.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

@@ -6,7 +6,6 @@ import dev.caio.fitsy.model.enums.Sexo;
 import java.time.LocalDate;
 
 public record UserInfoResponse(Integer status,
-                               String mensagem,
                                Float peso,
                                Integer altura,
                                Sexo sexo,

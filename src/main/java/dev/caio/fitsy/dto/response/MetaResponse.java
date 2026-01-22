@@ -8,7 +8,6 @@ import java.time.LocalDate;
 
 public record MetaResponse(
         Integer status,
-        String mensagem,
         LocalDate data_inicio,
         Float peso_inicial,
         Float peso_meta,

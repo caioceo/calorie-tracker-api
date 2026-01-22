@@ -1,6 +1,6 @@
 package dev.caio.fitsy.config.security;
 
-import dev.caio.fitsy.repository.UserRepository;
+import dev.caio.fitsy.repository.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

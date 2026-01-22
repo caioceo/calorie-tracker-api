@@ -2,15 +2,15 @@ package dev.caio.fitsy.dto.mapper;
 
 import dev.caio.fitsy.dto.request.CreateUserInfoRequest;
 import dev.caio.fitsy.dto.response.UserInfoResponse;
-import dev.caio.fitsy.model.UserInfo;
+import dev.caio.fitsy.model.user.UserInfo;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserInfoMapper {
 
-    public UserInfoResponse modelToResponse(Integer status, String mensagem, UserInfo user){
-        UserInfoResponse response = new UserInfoResponse(status, mensagem, user.getPeso(), user.getAltura(), user.getSexo(), user.getDataNascimento());
+    public UserInfoResponse modelToResponse(Integer status, UserInfo user){
+        UserInfoResponse response = new UserInfoResponse(status, user.getPeso(), user.getAltura(), user.getSexo(), user.getDataNascimento());
         return response;
     }
 
