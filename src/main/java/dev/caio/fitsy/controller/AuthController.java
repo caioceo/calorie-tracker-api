@@ -3,7 +3,6 @@ package dev.caio.fitsy.controller;
 import dev.caio.fitsy.dto.mapper.UserRegisterMapper;
 import dev.caio.fitsy.dto.request.auth.LoginRequest;
 import dev.caio.fitsy.dto.request.auth.RegisterUserRequest;
-import dev.caio.fitsy.dto.response.auth.LoginResponse;
 import dev.caio.fitsy.dto.response.auth.RegisterUserResponse;
 import dev.caio.fitsy.service.user.AuthService;
 import jakarta.validation.Valid;

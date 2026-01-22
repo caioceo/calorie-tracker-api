@@ -33,7 +33,7 @@ public class UserInfoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userInfoMapper.modelToResponse(HttpStatus.CREATED.value(), userInfoService.createUserInfo(user, request)));
     }
 
-    @PutMapping("/update-peso")
+    @PutMapping("/update/peso")
     public ResponseEntity<UserInfoResponse> updatePeso(@AuthenticationPrincipal User user, @RequestBody @Valid UpdatePesoRequest request){
         return ResponseEntity.status(HttpStatus.OK).body(userInfoMapper.modelToResponse(HttpStatus.OK.value(), userInfoService.updatePeso(user, request)));
     }

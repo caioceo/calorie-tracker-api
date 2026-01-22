@@ -23,7 +23,7 @@ public class AlimentacaoController {
 
     }
 
-    @PostMapping("/refeicao/alimento/add")
+    @PostMapping("/create/alimento-refeicao")
     public ResponseEntity<AlimentoRefeicaoResponse> createAlimentoRefeicao(@AuthenticationPrincipal User user, @RequestBody @Valid CreateAlimentoRefeicaoRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(alimentoRefeicaoMapper.modelToResponse(alimentoRefeicaoService.createAlimentoRefeicao(user, request)));
     }
