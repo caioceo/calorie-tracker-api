@@ -1,6 +1,6 @@
 package dev.caio.fitsy.config.security;
 
-import dev.caio.fitsy.repository.UserRepository;
+import dev.caio.fitsy.repository.user.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

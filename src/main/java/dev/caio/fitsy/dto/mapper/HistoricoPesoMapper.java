@@ -1,7 +1,7 @@
 package dev.caio.fitsy.dto.mapper;
 
 import dev.caio.fitsy.dto.response.HistoricoPesoResponse;
-import dev.caio.fitsy.model.HistoricoPeso;
+import dev.caio.fitsy.model.user.HistoricoPeso;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

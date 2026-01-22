@@ -2,7 +2,7 @@ package dev.caio.fitsy.dto.mapper;
 
 import dev.caio.fitsy.dto.request.MetaNutrientesRequest;
 import dev.caio.fitsy.dto.response.MetaNutrientesResponse;
-import dev.caio.fitsy.model.MetaNutrientes;
+import dev.caio.fitsy.model.metas.MetaNutrientes;
 import dev.caio.fitsy.model.enums.Status;
 import org.springframework.stereotype.Component;
 
@@ -32,16 +32,6 @@ public class MetaNutrientesMapper {
         );
 
         return response;
-    }
-
-    public MetaNutrientes createRequestToModel(MetaNutrientesRequest request){
-        MetaNutrientes model = new MetaNutrientes();
-        model.setProteinas((float)request.proteina());
-        model.setCarboidratos((float)request.carboidrato());
-        model.setGorduras((float)request.gordura());
-        model.setStatus(Status.ATIVO);
-        model.setDataInicio(LocalDate.now());
-        return model;
     }
 
     public void updateRequestToModel(MetaNutrientes changes){

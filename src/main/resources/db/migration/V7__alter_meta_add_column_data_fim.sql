@@ -1,0 +1,2 @@
+ALTER TABLE meta
+ADD COLUMN data_fim DATE;
