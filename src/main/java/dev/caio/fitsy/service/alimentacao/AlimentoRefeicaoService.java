@@ -11,9 +11,6 @@ import dev.caio.fitsy.repository.alimentacao.AlimentoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class AlimentoRefeicaoService {
     private final AlimentoRefeicaoRepository alimentoRefeicaoRepository;
@@ -44,17 +41,17 @@ public class AlimentoRefeicaoService {
         if (alimentoRefeicaoExistente != null) {
             float quantidadeSomada = alimentoRefeicaoExistente.getQuantidade() + request.quantidade();
             alimentoRefeicaoExistente.setQuantidade(quantidadeSomada);
-            alimentoRefeicaoExistente.setMacros(alimentoRefeicaoExistente.getAlimento());
+            alimentoRefeicaoExistente.setNutrientes(alimentoRefeicaoExistente.getAlimento());
             return alimentoRefeicaoRepository.save(alimentoRefeicaoExistente);
         }
 
         AlimentoRefeicao alimentoRefeicao = new AlimentoRefeicao();
         alimentoRefeicao.setAlimento(alimento);
         alimentoRefeicao.setQuantidade(request.quantidade());
-        alimentoRefeicao.setMacros(alimento);
+        alimentoRefeicao.setNutrientes(alimento);
         alimentoRefeicao.setRefeicao(refeicao);
         alimentoRefeicaoRepository.save(alimentoRefeicao);
-        return alimentoRefeicao;
+               return alimentoRefeicao;
     }
 
 //    // TODO REFATOR DAQUI PRA BAIXO

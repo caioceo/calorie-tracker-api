@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 public class AlimentoRefeicaoMapper {
 
     public AlimentoRefeicaoResponse modelToResponse(AlimentoRefeicao model) {
-        return new AlimentoRefeicaoResponse(model.getRefeicao().getNome(), model.getAlimento().getNome(),  model.getQuantidade(), "Caso o alimento ja esteja registrado na refeição, a quantidade será atualizada somando a quantidade informada.");
+        return new AlimentoRefeicaoResponse(model.getId(),model.getAlimento().getNome(),  model.getQuantidade(),
+                model.getCalorias(), model.getProteinas(), model.getCarboidratos(), model.getGorduras(),
+                model.getFibras(), model.getColesterol(), model.getSodio(), model.getPotassio(),
+                model.getFerro(), model.getCalcio());
     }
 }
