@@ -47,7 +47,6 @@ src/main/java/dev/caio/fitsy/
 
 - **Spring Security** configurado para proteção de endpoints
 - **Autenticação JWT (JSON Web Tokens)** para sessões stateless
-- **Sistema de roles** (ROLE_USER, ROLE_ADMIN) para controle de acesso
 - **Criptografia de senhas** com BCrypt
 - **Validação de entrada** em todas as requisições
 
@@ -80,7 +79,6 @@ src/main/java/dev/caio/fitsy/
 ### Autenticação
 - ✅ Registro de novos usuários
 - ✅ Login com JWT
-- ✅ Controle de acesso baseado em roles
 
 ### Gerenciamento de Usuário
 - ✅ Criação de perfil com informações pessoais
